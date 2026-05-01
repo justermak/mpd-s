@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools-scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mpd_s"
+dynamic = ["version"]
+description = "Motion Planning Diffusion - Shortcut"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch==2.10.0",
+    "torchvision",
+    "numpy",
+    "pandas",
+    "scipy",
+    "configargparse",
+    "pyyaml",
+    "matplotlib",
+    "tabulate",
+    "tensorboard",
+    "tqdm",
+    "ipython",
+    "ipykernel",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "flake8",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }
+
+[tool.setuptools]
+packages = {find = {where = ["."], exclude = ["scripts*", "datasets*", "data_trained_models*", "models*", "runs*"]}}
+
+[tool.setuptools.package-data]
+"*" = ["*.yaml", "*.yml", "*.json"]
+
+[tool.setuptools_scm]
+write_to = "mpd_s/_version.py"
+version_scheme = "no-guess-dev"
+
